@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <style type="text/css">
+          .active{
+              background: blueviolet;
+          }
+          button{
+              margin-right: 13px;
+          }
+          div{
+              width:200px;
+            height:200px;
+            border:2px solid gray;
+            display: none;
+          }
+          .show{
+              display: block;
+          }
+          .show img{
+              height:200px;
+              width:200px
+          }
+        </style>
+    </head>
+    <body >
+        <button class="active">按钮一</button>
+        <button>按钮二</button>
+        <button>按钮三</button>
+         <div class="show">
+             <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2479815909,2383805735&fm=26&gp=0.jpg" alt="">
+         </div>
+         <div><img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1450256560,3245959798&fm=26&gp=0.jpg" alt=""></div>
+         <div><img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3069677783,3423227802&fm=26&gp=0.jpg" alt=""></div>
+         <script>
+         let btns = document.querySelectorAll('button');
+         let divs = document.querySelectorAll('div');
+         let prev=0;
+         for(var i = 0;i<btns.length;i++){
+            function fun (i){
+               btns[i].onmouseenter=function(){
+                    btns[prev].className='';
+                    divs[prev].className='';
+                    this.className='active';
+                    divs[i].className='show';
+                    prev=i;
+                }
+            }
+            fun(i);
+         } 
+         
+         
+         </script>
+    </body>
+</html>

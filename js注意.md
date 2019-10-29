@@ -27,3 +27,58 @@
             getName: function () {}
         }
 20. 原型对象里有一个叫constructor的属性，它指向自己的构造器（构造函数）所以，一般用constructor属性来获取当前对象的构造函数
+21.原型其实就是当前对象的构造器（构造函数），它上面有个prototype属性，这个属性是个对象，里边包含所有后代都可以继承到的方法和属性，这个prototype属性叫做原型对象，我们一般就是跟它打交道。
+22.对象都是有函数构造的   引用类型都是对象   Object.prototype确实一个特例——它的__proto__指向的是null，切记切记！
+23.执行上下文环境：在执行代码之前要将所有要用到的变量事先拿出来，有的直接赋值，有的用undefined占位
+24. 复杂数据类型在隐式转换时会先转成String，然后再转成Number运算
+25.valueOf和toString
+valueOf返回的数据类型决定是否调用toString，如果返回的类型是数字或者字符串(其实用基础数据类型更准确点)，toString方法就不执行了。
+转化成字符串后再调用Number()转化成数字进行比较
+26.Promise
+    因为Promise是一个构造函数，所以我们使用了new操作符来创建promise
+    构造函数Promise的参数是一个函数（暂时叫它func），这个函数（func）有两个参数resolve和reject，它们分别是两个函数，这两个函数的作用就是将promise的状态从pending（等待）转换为resolved（已解决）或者从pending（等待）转换为rejected（已失败）。
+    创建后的promise有一些方法，then和catch。当然我们也可以人为的在Promise函数上添加一些满足我们自己需求的方法，方便每一个promise对象使用。
+Promise对象可以通过使用then方法将上一步返回的结果获取过来（不管是resolved还是rejected），可以通过使用catch方法捕获Promise对象在使用catch之前的异常。
+27.使用 bind 方法进行上下文的改变，bind 方法与 call 和 apply有着本质的不同，其不同点是，bind()函数返回的是一个新的函数，即方法，而后两者则都是立即执行函数，使用的时候即调用了该函数，返回方法操作的结果。
+并且，使用 bind()方法创建的 上下文，其为永久的上下文环境，不可修改，即使是使用 call 或者 apply方法，也无法修改 this 所指向的值。
+28.类声明和函数声明的区别
+ - 1.函数声明可以被变量提升，类声明不能被提升
+ - 2.类声明中代码会强制的运行在严格模式下
+ - 3.类中的所有方法都是不可枚举的，而在自定义类型中，可通过Object.defineProperty(),手工指定不可枚举的属性，每个类都有一个construct方法
+ - 4.只能使用new来调用类中的构造函数
+ - 5.不能在类中修改类名
+29.在用class声明时里面必须要有constructor(构造函数)方法，如果没有，js引擎会自动的添加一个空的constructor方法
+30. constructor方法是class的构造方法，在class实例化对象时（即new一个对象时）会自动调用构造方法，并且默认返回实例对象（this），当然你完全可以返回另外一个对象。
+31.class的静态方法：1.定义class的非静态方法是不用加上function关键字，也不需要用逗号隔开，用了反而会报错，而这些普通的方法(非静态方法)在实例化对象时会被实例继承2.定义class静态方法：需要在方法名前使用static关键字，这样的方法不会被实例所继承，但是它可以被类直接使用3.静态方法可以与非静态方法重名，非静态方法中的this直接指向实例，而静态方法中的this指向的是类4. 非静态方法中，不能直接使用this关键字来访问静态方法，而是要用类名来调用。如果静态方法包含this关键字，这个this指的是类，而不是实例。5. 另外提一点，class的方法名可以用变量来命名6. 类的所有方法都定义在类的prototype属性上面
+32.关于 [1,2,3]map(parseInt)问题的解析
+     parseInt()的定义是解析一个字符串，并返回一个整数，当参数radix的值为0时或没有设置改参数是，parseInt会根据string来判断数字的基数,
+	如果 string 以 "0x" 开头，parseInt() 会把 string 的其余部分解析为十六进制的整数。
+    如果 string 以 0 开头，那么 ECMAScript v3 允许 parseInt() 的一个实现把其后的字符解析为八进制或十六进制的数字。
+    如果 string 以 1 ~ 9 的数字开头，parseInt() 将把它解析为十进制的整数。
+ arr.map(parseInt)含义为对数组numbers的每一项调用parseIne()方法，传入的参数为每一项的值和该值的索引。        
+ parseInt(string,radix)
+ string: 必须，要被解析的字符串
+ radix：可选。表示要解析的数字基数，介于2-36之间。
+[‘1’，‘2’，‘3’].map(parseInt)等价于[‘1’，‘2’，‘3’].map（（item,index）=>parseInt(item,index)）
+
+33.for  一般用在数组或者类数组或者字符串(一般是知道长度且知道什么时候结束)
+   for in 一般循环对象   (性能比较低 因为枚举的时候会枚举原型链上)
+   while  不知道具体的条件或者是模糊的条件
+   
+34. Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
+	Object.assign(target, ...sources)  返回值是目标对象
+target
+目标对象。
+sources
+源对象。
+
+35.在正则表达式中使用变量
+var str = "variate";//定义变量
+var reg = new RegExp(str,"g")//定义正则表达式;
+var  myStr = "this is variate";
+myStr.replace(reg,'changing now!');
+36.return ++问题
+return n++;实际上就是return n;n=n+1;但是由于在一个有返回 值得方法中在return之后的语句的语句将不会再次执行，因为涉及到变量的值是否被修改，所以可以简单的理解为在局部变量上使用时的结果就是return n++;===return n;而在全局变量上使用时， 它就是return n++;===(return n;n=n+1;)。
+
+
+
